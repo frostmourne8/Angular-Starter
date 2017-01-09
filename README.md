@@ -1,5 +1,5 @@
-# Angular 2 Web Kata
-This is a project used to demonstrate my skills with Angular2
+# Angular Starter
+This is a project used as a foundation for future angular projects
 
 ## Dependencies
 The only required global dependency is node. All other dependencies will be installed by NPM.

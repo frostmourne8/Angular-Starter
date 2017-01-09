@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html style="height:100%; width: 100%">
+<html style="height:100%; width: 100%" ng-app="app" ng-strict-di>
   <head>
     <title>Angular Starter</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <base href="/">
   </head>
 
-  <body ng-app="app">
-    <ui-view>Loading...</ui-view>
+  <body>
+    <app></app>
   </body>
 </html>

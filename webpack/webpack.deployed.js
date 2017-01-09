@@ -9,11 +9,13 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const commonConfig = require('./webpack.common');
 
 const appDir = path.resolve(commonConfig.rootDir, 'public');
+const bundlesDir = path.resolve(appDir, 'bundles');
 
 module.exports = webpackMerge(commonConfig, {
 
     entry: {
-        'app': path.resolve(appDir, 'app', 'app.module.ts'),
+        'app': path.resolve(bundlesDir, 'main'),
+        'dependencies': path.resolve(bundlesDir, 'dependencies')
     },
 
     module: {

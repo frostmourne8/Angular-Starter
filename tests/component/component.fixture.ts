@@ -1,50 +1,61 @@
-import { Type, DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { TestBed, ComponentFixture, ComponentFixtureAutoDetect, tick } from '@angular/core/testing';
+import { element, IComponentOptions, IScope, IController, mock } from 'angular';
 
-export class ComponentTestFixture<T> {
+export class ComponentFixture {
 
-    private fixture: ComponentFixture<T>;
+    private markup: string;
+    private scope: IScope;
+    private componentElement: JQuery;
 
-    constructor(componentModule: Type<any>, componentType: Type<T>) {
-        TestBed.configureTestingModule({
-            imports: [ componentModule ],
-            providers: [ { provide: ComponentFixtureAutoDetect, useValue: true } ]
+    constructor(markup: string) {
+        this.markup = markup;
+    }
+
+    public initialize() {
+        return mock.inject(($rootScope, $compile) => {
+            this.scope = $rootScope.$new();
+            this.componentElement = element(this.markup);
+            this.componentElement = $compile(this.componentElement)(this.scope);
         });
-
-        this.fixture = TestBed.createComponent(componentType);
-        this.fixture.detectChanges();   
     }
 
-    public component(): T {
-        return this.fixture.componentInstance;
+    protected setBinding(binding: string, value: any) {
+        this.scope[binding] = value;
+        this.scope.$apply();
     }
 
-    public verify(verifyFunc: () => void): void {
-        this.fixture.whenStable().then(verifyFunc);
+    protected getBinding(binding: string) {
+        return this.scope[binding];
     }
 
     protected elementText(id: string): string {
-        return this.element(id).nativeElement.textContent;
+        return this.element(id).text();
     }
 
     protected clickElement(id: string) {
-        this.element(id).triggerEventHandler('click', {button: 0});
+        this.element(id).triggerHandler('click');
+    }
+
+    protected clickChild(cssClass: string, index: number) {
+        this.elementByClass(cssClass).get(index).click();
     }
 
     protected hoverElement(id: string) {
-        this.element(id).triggerEventHandler('mouseenter', {});
+        this.element(id).triggerHandler('mouseenter');
     }
 
     protected unhoverElement(id: string) {
-        this.element(id).triggerEventHandler('mouseleave', {});
+        this.element(id).triggerHandler('mouseleave');
     }
 
-    protected element(id: string): DebugElement {
-        return this.fixture.debugElement.query(By.css('#' + id));
+    protected element(id: string): JQuery {
+        return this.componentElement.find('#' + id);
     }
 
-    protected elementByClass(cssClass: string): DebugElement {
-        return this.fixture.debugElement.query(By.css('.' + cssClass));
+    protected elementByClass(cssClass: string): JQuery {
+        return this.componentElement.find('.' + cssClass);
     }
-}
+
+    protected childComponent(id: string, controllerName: string): IController {
+        return this.element(id).controller(controllerName);
+    }
+ }

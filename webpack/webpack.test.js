@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
 const commonConfig = require('./webpack.common');
@@ -27,6 +28,14 @@ module.exports = webpackMerge(commonConfig, {
             coverageLoader()
         ]
     },
+
+    plugins: [
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            jQuery: 'jquery',
+            'window.jQuery': 'jquery'
+        })
+    ],
 
     tslint: {
         emitErrors: true

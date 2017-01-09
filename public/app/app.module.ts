@@ -1,9 +1,17 @@
-import * as angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import { module } from 'angular';
 
-import routes from 'app/app.routes';
-import somefeature from 'somefeature/somefeature.module';
+import { AppComponent } from './app.component';
+import { AppRoutes } from './app.routes';
+import { SomeFeatureModule } from 'somefeature/somefeature.module';
+import { UsersModule } from 'users/users.module';
 
-export default angular.module('app', [uiRouter, somefeature])
-    .config(routes)
+const requires: string[] = [
+    'ui.router',
+    SomeFeatureModule,
+    UsersModule
+];
+
+export const AppModule = module('app', requires)
+    .component('app', AppComponent)
+    .config(AppRoutes)
     .name;

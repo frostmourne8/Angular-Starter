@@ -1,11 +1,15 @@
-import * as angular from 'angular';
+import { module } from 'angular';
 
-import routes from 'somefeature/somefeature.routes';
-import SomeFeatureController from 'somefeature/somefeature.controller';
-import SomeFeatureService from 'somefeature/somefeature.service';
+import { SomeFeatureComponent } from './somefeature.component';
+import { IncrementerComponent } from './components/incrementer.component';
+import { SomeFeatureService } from './somefeature.service';
+import { SomeFeatureRoutes } from './somefeature.routes';
 
-export default angular.module('somefeature', [])
-    .config(routes)
-    .controller('SomeFeatureController', SomeFeatureController)
+const requires: string[] = [ 'ui.router' ];
+
+export const SomeFeatureModule = module('somefeature', requires)
+    .component('somefeature', SomeFeatureComponent)
+    .component('incrementer', IncrementerComponent)
     .service('SomeFeatureService', SomeFeatureService)
+    .config(SomeFeatureRoutes)
     .name;

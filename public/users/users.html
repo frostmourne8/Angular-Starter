@@ -1,0 +1,9 @@
+<h2 id="current-user-header">Current User</h2>
+<user-profile id="user-profile" user="$ctrl.user"></user-profile>
+
+<h2 id="users-header">Users</h2>
+<ul>
+    <li ng-repeat="user in $ctrl.users track by user.id">
+        <span class="user" ng-click="$ctrl.userSelected(user.id)">{{user.name}}</span>
+    </li>
+</ul>

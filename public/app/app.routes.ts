@@ -1,8 +1,10 @@
-import {IUrlRouterProvider} from 'angular-ui-router';
-import {ILocationProvider} from 'angular';
+import { module, ILocationProvider } from 'angular';
+import { IUrlRouterProvider, IStateProvider } from 'angular-ui-router';
 
-/*@ngInject*/
-export default function routes($urlRouterProvider: IUrlRouterProvider, $locationProvider: ILocationProvider) {
-    $locationProvider.html5Mode(true);
+export function AppRoutes($urlRouterProvider: IUrlRouterProvider, $locationProvider: ILocationProvider, $stateProvider: IStateProvider) {
+    'ngInject';
+
+    $locationProvider.html5Mode(false);
     $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.when('/', '/somefeature');
 }

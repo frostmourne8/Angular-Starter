@@ -1,18 +1,15 @@
-import { ComponentTestFixture } from 'tests/component/component.fixture';
-import { AppComponent } from 'app/app.component';
-import { AppModule } from 'app/app.module';
+import { ComponentFixture } from 'tests/component/component.fixture';
+import { AppComponentController } from 'app/app.component';
 
-export class AppComponentFixture extends ComponentTestFixture<AppComponent> {
+const MARKUP = '<app></app>';
+
+export class AppComponentFixture extends ComponentFixture {
 
     constructor() {
-        super(AppModule, AppComponent);
+        super(MARKUP);
     }
 
-    public clickMe() {
-        this.clickElement('clickMeBtn');
-    }
-
-    public clickMeLabel() {
-        return this.elementText('clickMeBtn');
+    public headerText(): string {
+        return this.elementText('app-header');
     }
 }

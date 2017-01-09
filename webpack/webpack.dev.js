@@ -9,7 +9,7 @@ const distDir = path.resolve(deployedConfig.rootDir, 'public');
 
 const ENV = process.env.NODE_ENV = process.env.ENV = 'development';
 
-const DEV_ENDPOINTS = [];
+const DEV_ENDPOINTS = ['/users'];
 const PROXY_TARGET = {host: "localhost", protocol: 'http:', port: 3000};
 
 module.exports = webpackMerge(deployedConfig, {
@@ -33,7 +33,7 @@ module.exports = webpackMerge(deployedConfig, {
 function createDevProxy() {
     let proxy = {};
     DEV_ENDPOINTS.forEach((endpoint) => {
-        proxy[endpoint] = PROXY_TARGET;
+        proxy[endpoint] = {target: PROXY_TARGET};
     });
 
     return proxy;

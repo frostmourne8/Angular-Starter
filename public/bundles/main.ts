@@ -1,6 +1,3 @@
-import * as angular from 'angular';
-import app from 'app/app.module';
+import 'app/app.module';
 
-angular.element(function() {
-  angular.bootstrap(document.body, [app]);
-});
+require('images/favicon.ico');

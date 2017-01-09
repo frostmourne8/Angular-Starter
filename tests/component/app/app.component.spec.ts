@@ -1,24 +1,15 @@
-import { AppComponent } from 'app/app.component';
+import { mock } from 'angular';
+
 import { AppComponentFixture } from './app.component.fixture';
 
 describe('AppComponent', () => {
 
-    let fixture: AppComponentFixture;
+    let fixture: AppComponentFixture = new AppComponentFixture();
 
-    beforeEach(() => {
-        fixture = new AppComponentFixture();
-    });
+    beforeEach(mock.module('app'));
+    beforeEach(fixture.initialize());
 
-    it('should start with the click status as false', () => {
-        expect(fixture.component().wasClicked()).toBe(false);
-    });
-
-    it('should set the clicked status to true when the clickMe button is clicked', () => {
-        fixture.clickMe();
-        expect(fixture.component().wasClicked()).toBe(true);
-    });
-
-    it('should have the correct label for the clickMe button', () => {
-        expect(fixture.clickMeLabel()).toBe('Click Me');
+    it('should display the correct header', () => {
+        expect(fixture.headerText()).toBe('The Test Application');
     });
 });
