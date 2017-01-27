@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM angular-starter-foundation
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
