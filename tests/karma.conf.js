@@ -8,7 +8,7 @@ module.exports = (config) => {
         basePath: '',
         browserNoActivityTimeout: 60 * 1000, //For single runs that include webpack bundling
 
-        browsers: ['Chrome'],
+        browsers: ['PhantomJS'],
         frameworks: ['jasmine'],
 
         phantomJsLauncher: {
