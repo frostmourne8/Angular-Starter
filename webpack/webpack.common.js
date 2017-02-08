@@ -3,8 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const NgAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '..');
 const appDir = path.resolve(rootDir, 'public');
@@ -31,7 +29,11 @@ module.exports = {
     },
     
     plugins: [
-        new NgAnnotatePlugin({ add: true })
+        new webpack.ProvidePlugin({   
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
+        })
     ]
 };
 
@@ -44,5 +46,5 @@ function applicationTemplates() {
 }
 
 function applicationStyles() {
-    return { test: /\.css$/, include: appDir, loader: 'raw' };
+    return { test: /\.css$/, include: appDir, loader: "style-loader!css-loader" };
 }

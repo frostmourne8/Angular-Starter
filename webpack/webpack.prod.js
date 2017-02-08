@@ -3,7 +3,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const deployedConfig = require('./webpack.deployed');
 
@@ -19,10 +18,6 @@ module.exports = webpackMerge(deployedConfig, {
         chunkFilename: '[id].[hash].chunk.js'
     },
 
-    htmlLoader: {
-        minimize: false // workaround for ng2
-    },
-
     plugins: [
         new webpack.NoErrorsPlugin(), //Build process will still bail on errors. Resources with errors are simply not emmited.
         new webpack.optimize.DedupePlugin(), //Exclude duplicated resources
@@ -30,9 +25,9 @@ module.exports = webpackMerge(deployedConfig, {
             mangle: { keep_fnames: true }, //Required for angular2
             compress: { warnings: false }
         }),
-        new ExtractTextPlugin('[name].[hash].css'),
         new webpack.DefinePlugin({
             'process.env': { 'ENV': JSON.stringify(ENV) }
         })
     ]
+    
 });

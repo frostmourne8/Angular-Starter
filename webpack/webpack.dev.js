@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -15,7 +16,6 @@ const PROXY_TARGET = {host: "localhost", protocol: 'http:', port: 3000};
 module.exports = webpackMerge(deployedConfig, {
 
     debug: true,
-    devtool: 'source-map',
 
     devServer: {
         contentBase: distDir,     
@@ -28,6 +28,8 @@ module.exports = webpackMerge(deployedConfig, {
         filename: '[name].js',
         path: distDir
     },
+
+    plugins: [ new webpack.SourceMapDevToolPlugin() ]
 });
 
 function createDevProxy() {

@@ -20,9 +20,15 @@ module.exports = webpackMerge(commonConfig, {
 
     module: {
         loaders: [
-            assets(),            
-            libraryStyles(),
-            applicationCode()
+            assets(),        
+            libraryStyles(),    
+            applicationCode(),
+
+            //Bootstrap assets
+            {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
+            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
+            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
         ]
     },
 
@@ -32,6 +38,8 @@ module.exports = webpackMerge(commonConfig, {
             minChunks: Infinity
         }),
 
+        new ExtractTextPlugin('[name].[hash].css'),
+
         new HtmlWebpackPlugin({
             template: path.resolve(appDir, 'index.html')
         })
@@ -39,7 +47,7 @@ module.exports = webpackMerge(commonConfig, {
 });
 
 function applicationCode() {
-    return { test: /\.ts$/, exclude: /node_modules/, loader: 'awesome-typescript-loader' };
+    return { test: /\.ts$/, exclude: /node_modules/, loaders: ['ng-annotate', 'awesome-typescript-loader'] };
 }
 
 function assets() {
