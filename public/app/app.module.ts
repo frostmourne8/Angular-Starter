@@ -4,11 +4,13 @@ import { AppComponent } from './app.component';
 import { AppRoutes } from './app.routes';
 import { SomeFeatureModule } from 'somefeature/somefeature.module';
 import { UsersModule } from 'users/users.module';
+import { FormValidationModule } from 'formvalidation/form-validation.module';
 
 const requires: string[] = [
     'ui.router',
     SomeFeatureModule,
-    UsersModule
+    UsersModule,
+    FormValidationModule
 ];
 
 export const AppModule = module('app', requires)

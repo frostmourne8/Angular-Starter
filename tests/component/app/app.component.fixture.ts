@@ -1,5 +1,4 @@
 import { ComponentFixture } from 'tests/component/component.fixture';
-import { AppComponentController } from 'app/app.component';
 
 const MARKUP = '<app></app>';
 

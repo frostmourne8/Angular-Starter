@@ -18,6 +18,10 @@ export class ComponentFixture {
         });
     }
 
+    public wrap(componentElement: JQuery) {
+        this.componentElement = componentElement;
+    }
+
     protected setBinding(binding: string, value: any) {
         this.scope[binding] = value;
         this.scope.$apply();
@@ -47,8 +51,12 @@ export class ComponentFixture {
         this.element(id).triggerHandler('mouseleave');
     }
 
-    protected element(id: string): JQuery {
-        return this.componentElement.find('#' + id);
+    protected enterInputValue(id: string, value: any) {
+        this.element(id).val(value);
+    }
+
+    protected element(id?: string): JQuery {
+        return id ? this.componentElement.find('#' + id) : this.componentElement;        
     }
 
     protected elementByClass(cssClass: string): JQuery {

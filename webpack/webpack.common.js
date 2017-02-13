@@ -3,6 +3,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const rootDir = path.resolve(__dirname, '..');
 const appDir = path.resolve(rootDir, 'public');
@@ -23,8 +24,15 @@ module.exports = {
     module: {
         loaders: [
             html(),
+            libraryStyles(),
             applicationStyles(),
-            applicationTemplates()
+            applicationTemplates(),
+
+            //Bootstrap assets
+            {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
+            {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+            {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
+            {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
         ]
     },
     
@@ -33,7 +41,8 @@ module.exports = {
             jQuery: 'jquery',
             $: 'jquery',
             jquery: 'jquery'
-        })
+        }),
+        new ExtractTextPlugin('[name].[hash].css')
     ]
 };
 
@@ -47,4 +56,12 @@ function applicationTemplates() {
 
 function applicationStyles() {
     return { test: /\.css$/, include: appDir, loader: "style-loader!css-loader" };
+}
+
+function libraryStyles() {
+    return {
+        test: /\.css$/,
+        exclude: appDir,
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+    };
 }
