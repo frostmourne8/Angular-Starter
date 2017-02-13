@@ -1,0 +1,44 @@
+<h1>A Form</h1>
+
+<div>Birthday: {{$ctrl.user.birthday}}</div>
+<div>SSN: {{$ctrl.user.ssn}}</div>
+<br/>
+<form name="theValidationForm" class="form-horizontal" novalidate>
+
+    <input form-input type="text" id="nameField" name="nameField"
+           label="Name"
+           form="theValidationForm"
+           validations="$ctrl.nameValidations"
+           ng-model="$ctrl.user.name"
+           required/>
+
+    <input form-input type="email" id="emailField" name="emailField"
+           label="Email"
+           form="theValidationForm"
+           ng-model="$ctrl.user.email"
+           required/>
+
+    <input form-input type="date" id="birthdayField" name="birthdayField"
+           label="Birthday"
+           form="theValidationForm"
+           transforms="$ctrl.dateTransforms"
+           ng-model="$ctrl.user.birthday"/>
+
+    <ssn-input id="ssnField" name="ssnField"
+           form="theValidationForm"
+           ng-model="$ctrl.user.ssn"
+           required="true"></ssn-input>
+
+    <input form-input type="password" id="passwordField" name="passwordField"
+           label="Password"
+           form="theValidationForm"
+           ng-model="$ctrl.user.password"
+           required/>
+
+    <input form-input type="password" id="confirmPasswordField" name="confirmPasswordField"
+           label="Confirm Password"
+           form="theValidationForm"
+           validations="$ctrl.confirmPasswordValidations"
+           ng-model="$ctrl.confirmPassword"
+           required/>
+</form>

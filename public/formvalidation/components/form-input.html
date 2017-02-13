@@ -1,0 +1,18 @@
+<div class="form-group">
+    <label class="control-label col-sm-3" for="{{$ctrl.id}}">
+        {{$ctrl.label}}<span ng-if="$ctrl.isRequired()" class="required-marker">*</span>
+        <div class="form-input-why" ng-if="$ctrl.whyText"
+             uib-popover="{{$ctrl.whyText}}"
+             popover-title="Why do we need this?"
+             popover-trigger="'mouseenter'"
+             popover-append-to-body="true"
+             popover-placement="right">
+            <a>Why do we need this?</a>
+        </div>
+    </label>
+    <div class="form-input col-sm-6"></div>
+    <label class="form-input-error text-danger col-sm-3" id="{{$ctrl.id + '_error'}}" ng-show="$ctrl.isInvalid()">{{$ctrl.invalidLabel()}}</label>
+    <div ng-repeat="validation in $ctrl.validations track by validation.name">
+        <p ng-show="$ctrl.shouldShowValidationInfo(validation)" class="form-input-info text-info">{{validation.description}}</p>
+    </div>
+</div>
